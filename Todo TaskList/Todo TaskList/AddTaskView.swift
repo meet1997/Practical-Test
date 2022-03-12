@@ -45,8 +45,16 @@ class AddTaskView: UIView {
         if day == "" && date == "" && month == "" {
             setDateValues(self.datePicker)
         }
-        let task = Task(title: taskTextField.text ?? "", date: date, month: month, day: day, alert: alert)
-        delegate?.add(task: task)
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let item = Task(context: context)
+        item.title = taskTextField.text
+        item.isCompleted = false
+        item.month = month
+        item.alert = alert
+        item.day = day
+        item.date = date
+//        let task = Task(title: taskTextField.text ?? "", date: date, month: month, day: day, alert: alert)
+        delegate?.add(task: item)
         taskTextField.resignFirstResponder()
         self.resignFirstResponder()
         self.isHidden = true

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
@@ -22,9 +23,13 @@ class ViewController: UIViewController {
     let cellsInSingleRow: CGFloat = 2
     let cellReuseIdentifier = "taskCell"
     var tasks: [Task] = []
+    var context: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
         todoTaskCollectionView.dataSource = self
         todoTaskCollectionView.delegate = self
         todoTaskCollectionView.register(UINib(nibName: "TodoTaskCollectionViewCell", bundle: .main), forCellWithReuseIdentifier: cellReuseIdentifier)
@@ -38,6 +43,7 @@ class ViewController: UIViewController {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        loadContext()
         calculateProgress()
     }
 
@@ -77,6 +83,24 @@ class ViewController: UIViewController {
         progressView.progress = value
         progressLabel.text = "\(Int(floor(percentage)))%"
     }
+    
+    func saveContext() {
+         do {
+             try context.save()
+         } catch {
+             print("Failed to with error: \(error)")
+         }
+     }
+    
+    func loadContext() {
+        let request: NSFetchRequest<Task> = Task.fetchRequest()
+        do {
+            tasks = try context.fetch(request)
+            todoTaskCollectionView.reloadData()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 extension ViewController: UITextFieldDelegate {
@@ -105,6 +129,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         tasks[indexPath.row].isCompleted = true
+        saveContext()
         todoTaskCollectionView.reloadItems(at: [indexPath])
         calculateProgress()
     }
@@ -125,6 +150,8 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, 
 
 extension ViewController: TaskDelegate {
     func add(task: Task) {
+        
+        saveContext()
         opaqueView.isHidden = true
         tasks.append(task)
         calculateProgress()
