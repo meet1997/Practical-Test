@@ -16,6 +16,8 @@
 		027B8D3527DC847200F3A05E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 027B8D3327DC847200F3A05E /* LaunchScreen.storyboard */; };
 		027B8D4027DC8C6C00F3A05E /* TodoTaskCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027B8D3E27DC8C6C00F3A05E /* TodoTaskCollectionViewCell.swift */; };
 		027B8D4127DC8C6C00F3A05E /* TodoTaskCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 027B8D3F27DC8C6C00F3A05E /* TodoTaskCollectionViewCell.xib */; };
+		027B8D4327DC9E0D00F3A05E /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027B8D4227DC9E0D00F3A05E /* AddTaskView.swift */; };
+		027B8D4527DCA25400F3A05E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027B8D4427DCA25400F3A05E /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		027B8D3627DC847200F3A05E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		027B8D3E27DC8C6C00F3A05E /* TodoTaskCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskCollectionViewCell.swift; sourceTree = "<group>"; };
 		027B8D3F27DC8C6C00F3A05E /* TodoTaskCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoTaskCollectionViewCell.xib; sourceTree = "<group>"; };
+		027B8D4227DC9E0D00F3A05E /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		027B8D4427DCA25400F3A05E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,11 +71,13 @@
 				027B8D3E27DC8C6C00F3A05E /* TodoTaskCollectionViewCell.swift */,
 				027B8D2927DC847000F3A05E /* ViewController.swift */,
 				027B8D2B27DC847000F3A05E /* Main.storyboard */,
+				027B8D4227DC9E0D00F3A05E /* AddTaskView.swift */,
 				027B8D3F27DC8C6C00F3A05E /* TodoTaskCollectionViewCell.xib */,
 				027B8D3127DC847200F3A05E /* Assets.xcassets */,
 				027B8D3327DC847200F3A05E /* LaunchScreen.storyboard */,
 				027B8D3627DC847200F3A05E /* Info.plist */,
 				027B8D2E27DC847000F3A05E /* Todo_TaskList.xcdatamodeld */,
+				027B8D4427DCA25400F3A05E /* Task.swift */,
 			);
 			path = "Todo TaskList";
 			sourceTree = "<group>";
@@ -151,7 +157,9 @@
 				027B8D2A27DC847000F3A05E /* ViewController.swift in Sources */,
 				027B8D4027DC8C6C00F3A05E /* TodoTaskCollectionViewCell.swift in Sources */,
 				027B8D2627DC847000F3A05E /* AppDelegate.swift in Sources */,
+				027B8D4327DC9E0D00F3A05E /* AddTaskView.swift in Sources */,
 				027B8D3027DC847000F3A05E /* Todo_TaskList.xcdatamodeld in Sources */,
+				027B8D4527DCA25400F3A05E /* Task.swift in Sources */,
 				027B8D2827DC847000F3A05E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
