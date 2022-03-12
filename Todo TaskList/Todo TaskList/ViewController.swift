@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     let cellsInSingleRow: CGFloat = 2
     let cellReuseIdentifier = "taskCell"
+    var tasks: [Task] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class ViewController: UIViewController {
         addTaskView.clipsToBounds = true
         addTaskView.layer.cornerRadius = 15
         addTaskView.taskTextField.delegate = self
-        
+        addTaskView.delegate = self
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
@@ -73,15 +74,23 @@ extension ViewController: UITextFieldDelegate {
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return tasks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = todoTaskCollectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as? TodoTaskCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
+        let task = tasks[indexPath.row]
+        cell.configureCell(from: task)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        tasks[indexPath.row].isCompleted = true
+        todoTaskCollectionView.reloadItems(at: [indexPath])
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -91,5 +100,11 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, 
         let width = (collectionView.frame.width - spacing) / cellsInSingleRow
         return CGSize(width: width, height: width)
     }
-    
+}
+
+extension ViewController: TaskDelegate {
+    func add(task: Task) {
+        tasks.append(task)
+        todoTaskCollectionView.reloadData()
+    }
 }

@@ -13,4 +13,5 @@ struct Task {
     let month: String
     let day: String
     let alert: Bool
+    var isCompleted: Bool = false
 }

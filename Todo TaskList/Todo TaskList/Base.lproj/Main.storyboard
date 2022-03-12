@@ -57,9 +57,9 @@
                                 </constraints>
                             </stackView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3TT-LD-1eg">
-                                <rect key="frame" x="40" y="267.5" width="334" height="20"/>
+                                <rect key="frame" x="40" y="267.5" width="334" height="10"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="7rE-v2-UES"/>
+                                    <constraint firstAttribute="height" constant="10" id="7rE-v2-UES"/>
                                 </constraints>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oST-70-F0g">
@@ -72,7 +72,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8fI-MK-02V">
-                                <rect key="frame" x="16" y="317.5" width="382" height="544.5"/>
+                                <rect key="frame" x="16" y="307.5" width="382" height="554.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KIk-a3-jy0">
                                     <size key="itemSize" width="128" height="128"/>
@@ -194,6 +194,7 @@
                                     <constraint firstItem="FJ4-X3-rqS" firstAttribute="centerX" secondItem="2Wk-0M-iT5" secondAttribute="centerX" id="pWy-6N-5qF"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="alertSwitch" destination="Aoy-zN-ZLE" id="g6v-ch-nus"/>
                                     <outlet property="datePicker" destination="oKr-Cv-1fJ" id="GQu-l1-6jR"/>
                                     <outlet property="taskTextField" destination="FJ4-X3-rqS" id="xBT-yt-d6G"/>
                                 </connections>
