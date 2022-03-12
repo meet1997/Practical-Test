@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var addTaskView: AddTaskView!
     @IBOutlet weak var addTaskViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var opaqueView: UIView!
     let cellsInSingleRow: CGFloat = 2
     let cellReuseIdentifier = "taskCell"
     var tasks: [Task] = []
@@ -37,11 +38,12 @@ class ViewController: UIViewController {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        calculateProgress()
     }
 
     @IBAction func addButtonTapped(_ sender: Any) {
         addTaskView.isHidden = false
-        
+        opaqueView.isHidden = false
     }
     
     @objc func keyboardWillHide(_ n: Notification) {
@@ -60,6 +62,20 @@ class ViewController: UIViewController {
             }
             addTaskViewBottomConstraint.constant += keyboardFrame.height
         }
+    }
+    
+    func calculateProgress() {
+        let numberOfTasks = tasks.count
+        if numberOfTasks == 0 {
+            progressView.progress = 0
+            progressLabel.text = "0%"
+            return
+        }
+        let completedTasks = tasks.filter({ $0.isCompleted }).count
+        let value = (Float(completedTasks) / Float(numberOfTasks))
+        let percentage = value * 100
+        progressView.progress = value
+        progressLabel.text = "\(Int(floor(percentage)))%"
     }
 }
 
@@ -90,7 +106,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, 
         
         tasks[indexPath.row].isCompleted = true
         todoTaskCollectionView.reloadItems(at: [indexPath])
-        
+        calculateProgress()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -100,11 +116,22 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, 
         let width = (collectionView.frame.width - spacing) / cellsInSingleRow
         return CGSize(width: width, height: width)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
 }
 
 extension ViewController: TaskDelegate {
     func add(task: Task) {
+        opaqueView.isHidden = true
         tasks.append(task)
+        calculateProgress()
         todoTaskCollectionView.reloadData()
+    }
+    
+    func cancel() {
+        opaqueView.isHidden = true
     }
 }

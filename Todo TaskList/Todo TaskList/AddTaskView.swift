@@ -9,6 +9,7 @@ import UIKit
 
 protocol TaskDelegate: AnyObject {
     func add(task: Task)
+    func cancel()
 }
 
 class AddTaskView: UIView {
@@ -27,6 +28,7 @@ class AddTaskView: UIView {
     
     @IBAction func dismissBtnPressed(_ sender: Any) {
         self.isHidden = true
+        delegate?.cancel()
         resetData()
     }
     
